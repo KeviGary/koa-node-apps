@@ -5,11 +5,11 @@
 	"main"			: "app.js",
 	"private"		: true,
 	"dependencies"	: {
-		"async": "*",
-		"mysql": "*",
-		"memcache": "*",
-		"socket.io": "*",
-		"socket.io-client": "*",
-		"v8-profiler": "*"
+		"async"					: "*",
+		"mysql"					: "*",
+		"memcache"				: "*",
+		"socket.io"				: "*",
+		"socket.io-client"		: "*",
+		"v8-profiler"			: "*"
 	}
 }
