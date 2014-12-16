@@ -1,0 +1,15 @@
+{
+	"name"			: "GameServer",
+	"description"	: "GameServer",
+	"version"		: "0.0.1",
+	"main"			: "app.js",
+	"private"		: true,
+	"dependencies"	: {
+		"async": "*",
+		"mysql": "*",
+		"memcache": "*",
+		"socket.io": "*",
+		"socket.io-client": "*",
+		"v8-profiler": "*"
+	}
+}
