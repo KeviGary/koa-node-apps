@@ -10,6 +10,7 @@
 		"memcache"				: "*",
 		"socket.io"				: "*",
 		"socket.io-client"		: "*",
-		"v8-profiler"			: "*"
+		"v8-profiler"			: "*",
+		"node-heapdump"			: "*"
 	}
 }

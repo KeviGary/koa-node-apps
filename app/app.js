@@ -1,5 +1,5 @@
 //加载常用类
-loadAppLib('Util', 'CacheManager');
+loadAppLib('Util', 'Cache');
 
 //启动ChatServer
 appRequire('chat/ChatServer');

@@ -1,15 +1,58 @@
 //加载用户Model
 appModel('User');
 
+var arr = [];
+function someFn(i) {
+	return i * 3 * 8;
+}
+function init_array(){
+	for (var i = 0; i < 1000000; i++) {
+		arr[i] = i;
+	}
+}
+init_array();
+
 var LibTest = {
+	sql_page: function(){
+		from("User").toPage(1, 2, function(err, result){
+			log.info(result);
+		});
+	},
+	sql_like: function(){
+		log.info(from("User").where({ UserName: { like: '张%' } }).toList(function(err, result){
+			log.info(err);
+			log.info(result);
+		}));
+	},
+	sql_in: function(){
+		log.info(from("User").where({ UserID: { in: [3, 4, 5] } }).toList(function(err, result){
+			log.info(err);
+			log.info(result);
+		}));
+	},
+	array_foreach: function() {
+		console.time("array");
+		arr.forEach(someFn);
+		console.timeEnd("array");
+	},
+	array_forin: function() {
+		console.time("array");
+		for (var i in arr) someFn(arr[i]);
+		console.timeEnd("array");
+	},
+	array_for: function() {
+		console.time("array");
+		for (var i= 0, len = arr.length; i < len; i++) someFn(arr[i]);
+		console.timeEnd("array");
+	},
 	cache_get: function(){
-		CacheManager.getUser(1, function(err, result){
+		Cache.getUser(1, function(err, result){
 			log.info(err);
 			log.info(result);
 		});
 	},
 	cache_del: function(){
-		CacheManager.removeUser(1, function(err, result){
+		Cache.removeUser(1, function(err, result){
 			log.info(err);
 			log.info(result);
 		});
@@ -39,11 +82,11 @@ var LibTest = {
 		//瀑布
 		async.waterfall([
 			function(callback){
-				CacheManager.getUsers(callback);
+				Cache.getUsers(callback);
 			},
 			function(result, callback){
 				log.info(result);
-				CacheManager.getUser(3, callback);
+				Cache.getUser(3, callback);
 			}
 		], function(err, results) {
 			//log.info(err);
@@ -149,15 +192,15 @@ var LibTest = {
 			.distinct()
 			.select('a.UserID', 'b.OrderID', 'c.GiftID')
 			.sum('b.Money')
-			.innerJoin('Order as b').on('a.UserID=b.UserID')
+			.innerJoin('Order as b').on('a.UserID=b.UserID').and({'b.Status': 1})
 			.innerJoin('Gift as c').on('b.GiftID=c.GiftID')
 			.where({ 'a.UserID': { 'in': [1,2,3] } })
 			.groupBy('a.UserID')
 			.orderBy('a.UserID', 'b.OrderID desc')
 			.limit(10);
 		log.info(linq.toList(null, false));
-		log.info(linq.first(null, false));
-		log.info(linq.count());
+		//log.info(linq.first(null, false));
+		//log.info(linq.count());
 	},
 	time_destory3: function(){
 		var linq = from("User").where({UserID:3}).first();
@@ -175,6 +218,7 @@ var LibTest = {
 	linq_destroy: function(){
 		log.info('destroy1');
 		var ss = from("User").where({UserID:3});
+		ss.first();
 		ss = null;
 		delete ss;
 		log.info(ss);

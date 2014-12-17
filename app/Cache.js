@@ -1,5 +1,5 @@
 //cache
-var cacheManager = {
+var Cache = {
 	hour: 3600,
 	day: this.hour * 24,
 
@@ -66,4 +66,4 @@ var cacheManager = {
 	}
 };
 
-module.exports = cacheManager;
+module.exports = Cache;
