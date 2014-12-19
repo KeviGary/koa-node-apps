@@ -1,3 +1,5 @@
+'use strict';
+
 //加载常用类
 loadAppLib('Util', 'Cache');
 

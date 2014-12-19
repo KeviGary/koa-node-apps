@@ -1,3 +1,5 @@
+'use strict';
+
 //cache
 var Cache = {
 	hour: 3600,
@@ -6,7 +8,7 @@ var Cache = {
 	getUsers: function(cb) {
 		this.cacheGet(User, 'getUsers', [], this.day, cb);
 	},
-	removeUser: function(cb) {
+	removeUsers: function(cb) {
 		this.cacheDelete(User, 'getUsers', [], cb);
 	},
 

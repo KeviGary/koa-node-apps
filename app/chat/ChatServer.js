@@ -1,3 +1,5 @@
+'use strict';
+
 var config = appConfig('app');
 var server = require('socket.io').listen(config.port);
 

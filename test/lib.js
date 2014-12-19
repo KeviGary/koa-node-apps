@@ -1,3 +1,5 @@
+'use strict';
+
 //加载用户Model
 appModel('User');
 
@@ -205,12 +207,10 @@ var LibTest = {
 	time_destory3: function(){
 		var linq = from("User").where({UserID:3}).first();
 		linq = null;
-		delete linq;
 	},
 	time_destory2: function(){
 		var linq = from("User").where({UserID:3});
 		linq = null;
-		delete linq;
 	},
 	time_destory1: function(){
 		from("User").where({UserID:3}).destroy();
@@ -219,8 +219,6 @@ var LibTest = {
 		log.info('destroy1');
 		var ss = from("User").where({UserID:3});
 		ss.first();
-		ss = null;
-		delete ss;
 		log.info(ss);
 
 		log.info('destroy2');
@@ -229,8 +227,7 @@ var LibTest = {
 			log.info(result);
 			log.info(ss);
 		});
-		ss = null;
-		delete ss;
+		log.info(ss.whereList);
 		log.info(ss);
 	},
 	db_select3: function() {

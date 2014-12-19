@@ -1,3 +1,5 @@
+'use strict';
+
 //Model
 var User = {
 	model: 'User',
