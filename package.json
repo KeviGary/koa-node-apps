@@ -9,6 +9,7 @@
 		"mysql"					: "*",
 		"memcache"				: "*",
 		"socket.io"				: "*",
-		"socket.io-client"		: "*"
+		"socket.io-client"		: "*",
+		"sticky-session"		: "*"
 	}
 }

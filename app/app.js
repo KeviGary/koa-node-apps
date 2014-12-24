@@ -1,12 +1,12 @@
 'use strict';
 
+var config = appConfig('app');
+
 //加载常用类
 loadAppLib('Util', 'Cache');
 
-//启动ChatServer
-appRequire('chat/ChatServer');
+//启动单个ChatServer
+appRequire('chat/OneChatServer');
 
-setTimeout(function() {
-	//启动ChatClient
-	appRequire('chat/ChatClient');
-}, 1000);
+//启动多个ChatServer
+//appRequire('chat/MultChatServer');
