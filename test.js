@@ -1,7 +1,7 @@
 'use strict';
 
 //require('v8-profiler');
-var heapdump = require('heapdump');
+//var heapdump = require('heapdump');
 
 //测试路径
 global.TestPath   = '/test/';

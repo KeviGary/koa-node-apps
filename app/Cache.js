@@ -32,7 +32,7 @@ var Cache = {
 		return cache.get(key).then(function(list) {
 			if (list) return list;
 			cacheData = false;
-			return model[func].apply(this, params);
+			return model[func].apply(null, params);
 		}).then(function(result) {
 			if (!cacheData) { cacheData = result; return cache.set(key, result, lifetime); }
 			return result;

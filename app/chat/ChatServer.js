@@ -3,27 +3,27 @@
 var config = appConfig('app');
 var server = require('socket.io').listen(config.port);
 
-log.info('server listening at port '+config.port);
+logger.info('server listening at port '+config.port);
 
 var users = {};
 
 server.on('connection', function(client){
-	log.info('connection');
+	logger.info('connection');
 
 	client.on('login', function(data) {
-		log.info('login');
-		log.info(data);
+		logger.info('login');
+		logger.info(data);
 		client.emit('login', {message:'login success!'});
 	});
 
 	client.on('chat', function(data) {
-		log.info('chat');
-		log.info(data);
+		logger.info('chat');
+		logger.info(data);
 		client.emit('chat', data);
 	});
 
 	client.on('disconnect', function () {
-		log.info('disconnect');
+		logger.info('disconnect');
 		delete users[socket.username];
 	});
 

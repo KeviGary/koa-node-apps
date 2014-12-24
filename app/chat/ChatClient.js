@@ -8,14 +8,14 @@ client.on('connect', function () {
 });
 
 client.on('login', function(data) {
-	log.info('login');
-	log.info(data);
+	logger.info('login');
+	logger.info(data);
 	client.emit('chat', data);
 });
 
 client.on('chat', function(data) {
-	log.info('chat');
-	log.info(data);
+	logger.info('chat');
+	logger.info(data);
 	//client.emit('chat', data);
 });
 

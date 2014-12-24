@@ -9,8 +9,6 @@
 		"mysql"					: "*",
 		"memcache"				: "*",
 		"socket.io"				: "*",
-		"socket.io-client"		: "*",
-		"v8-profiler"			: "*",
-		"heapdump"				: "*"
+		"socket.io-client"		: "*"
 	}
 }
