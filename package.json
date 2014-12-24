@@ -5,12 +5,12 @@
 	"main"			: "app.js",
 	"private"		: true,
 	"dependencies"	: {
-		"async"					: "*",
+		"bluebird"				: "*",
 		"mysql"					: "*",
 		"memcache"				: "*",
 		"socket.io"				: "*",
 		"socket.io-client"		: "*",
 		"v8-profiler"			: "*",
-		"node-heapdump"			: "*"
+		"heapdump"				: "*"
 	}
 }

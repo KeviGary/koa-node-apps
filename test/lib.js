@@ -16,21 +16,25 @@ init_array();
 
 var LibTest = {
 	sql_page: function(){
-		from("User").toPage(1, 2, function(err, result){
+		console.time("sql_page");
+		from("User").toPage(1, 2).then(function(result){
 			log.info(result);
+			console.timeEnd("sql_page");
 		});
 	},
 	sql_like: function(){
-		log.info(from("User").where({ UserName: { like: '张%' } }).toList(function(err, result){
-			log.info(err);
+		console.time("sql_like");
+		from("User").where({ UserName: { like: '张%' } }).toList().then(function(result){
 			log.info(result);
-		}));
+			console.timeEnd("sql_like");
+		});
 	},
 	sql_in: function(){
-		log.info(from("User").where({ UserID: { in: [3, 4, 5] } }).toList(function(err, result){
-			log.info(err);
+		console.time("sql_in");
+		from("User").where({ UserID: { in: [3, 4, 5] } }).toList().then(function(result){
 			log.info(result);
-		}));
+			console.timeEnd("sql_in");
+		});
 	},
 	array_foreach: function() {
 		console.time("array");
@@ -48,127 +52,43 @@ var LibTest = {
 		console.timeEnd("array");
 	},
 	cache_get: function(){
-		Cache.getUser(1, function(err, result){
-			log.info(err);
+		console.time("cache_get");
+		Cache.getUser(1).then(function(result){
 			log.info(result);
+			console.timeEnd("cache_get");
 		});
 	},
 	cache_del: function(){
-		Cache.removeUser(1, function(err, result){
-			log.info(err);
+		console.time("cache_del");
+		Cache.removeUser(1).then(function(result){
 			log.info(result);
+			console.timeEnd("cache_del");
 		});
 	},
 	cache: function(){
-		console.time("cache");
-		//串行执行
-		async.series([
-			function(callback) { cache.set('testtest', '1111111', 0, callback); },
-			function(callback) { cache.get('testtest', callback); }
-		], function(err, results) {
-			log.info(results);
-			console.timeEnd("cache");
-		});
-	},
-	async_times: function(){
-		console.time("async_times");
-		async.times(5, function (n, callback) {
-			User.getUser(n + 1, callback);
-		}, function (err, result) {
+		cache.get('test').then(function(result) {
 			log.info(result);
-			console.timeEnd("async_times");
 		});
-	},
-	async_waterfall: function(){
-		console.time("waterfall");
-		//瀑布
-		async.waterfall([
-			function(callback){
-				Cache.getUsers(callback);
-			},
-			function(result, callback){
-				log.info(result);
-				Cache.getUser(3, callback);
-			}
-		], function(err, results) {
-			//log.info(err);
-			log.info(results);
-			console.timeEnd("waterfall");
+		cache.set('test', 1).then(function(result) {
+			log.info(result);
 		});
-	},
-	async_series2: function(){
-		console.time("series2");
-		//串行执行
-		async.series([
-			async.apply(User.getUsers),
-			async.apply(User.getUser, 3),
-			async.apply(User.getUser, 4),
-			async.apply(User.getUser, 5)
-		], function(err, results) {
+		cache.delete('test').done();
+
+		console.time("promise.all");
+		promise.all([
+			cache.set('testtest1', '1111111'),
+			cache.set('testtest2', '222222')
+		]).then(function(results){
 			log.info(results);
-			console.timeEnd("series2");
+			console.timeEnd("promise.all");
 		});
-	},
-	async_series1: function(){
-		console.time("series");
-		//串行执行
-		async.series([
-			function(callback){
-				//from('User').set({UserName: '熊哥'}).insert(callback);
-				//from('User').set({UserName: '熊华春'}).where({UserID: 1}).update(callback);
-				//log.info(from('User').where({UserID: 2}).delete(callback));
-				from('User').toList(callback);
-			},
-			function(callback){
-				from('User').where({UserID: 3}).first(callback);
-			},
-			function(callback){
-				from('User').where({UserID: 4}).first(callback);
-			},
-			function(callback){
-				User.getUser(5, callback);
-			}
-		], function(err, results) {
-			//log.Info(err);
+		console.time("promise.props");
+		promise.props({
+			'test1': cache.set('testtest1', '1111111'),
+			'test2': cache.set('testtest2', '222222')
+		}).then(function(results){
 			log.info(results);
-			console.timeEnd("series");
-		});
-	},
-	async_parallel2: function(){
-		console.time("parallel2");
-		//并行执行
-		async.parallel([
-			async.apply(User.getUsers),
-			async.apply(User.getUser, 3),
-			async.apply(User.getUser, 4),
-			async.apply(User.getUser, 5)
-		], function(err, results) {
-			log.info(results);
-			console.timeEnd("parallel2");
-		});
-	},
-	async_parallel1: function(){
-		console.time("parallel");
-		//并行执行
-		async.parallel([
-			function(callback){
-				//from('User').set({UserName: '熊哥'}).insert(callback);
-				//from('User').set({UserName: '熊华春'}).where({UserID: 1}).update(callback);
-				//log.info(from('User').where({UserID: 2}).delete(callback));
-				from('User').toList(callback);
-			},
-			function(callback){
-				from('User').where({UserID: 3}).first(callback);
-			},
-			function(callback){
-				from('User').where({UserID: 4}).first(callback);
-			},
-			function(callback){
-				User.getUser(5, callback);
-			}
-		], function(err, results) {
-			log.info(results);
-			console.timeEnd("parallel");
+			console.timeEnd("promise.props");
 		});
 	},
 	date: function(){
@@ -178,18 +98,18 @@ var LibTest = {
 		log.info(new Date().format('yyyy-MM-dd'));
 	},
 	linq: function() {
-		log.info(from('User').set({ UserID: 1, UserName: 'test' }).insert());
-		log.info(from('User').where({ UserID: 1 }).delete());
-		log.info(from('User').where('UserID=1').delete());
-		log.info(from('User').where({ UserID: { 'in': [1,2,3] } }).delete());
-		log.info(from('User').where({ UserName: { 'like': '%cexo%' } }).delete());
-		log.info(from('User').where({ UserID: { '>': 1, '<': 1000 } }).delete());
-		log.info(from('User').where({ UserID: 1 }).and({ UserName: 'cexo' }).delete());
-		log.info(from('User').where({ UserID: 1 }).or({ UserID: 2 }).delete());
-		log.info(from('User').where({ UserID: 1 }).andBegin({ UserName: 'cexo1' }).orEnd({ UserName: 'cexo2' }).delete());
-		log.info(from('User').where({ UserID: 1 }).set({ UserName: 'cexo' }).update());
-		log.info(from('User').where({ UserID: 1 }).toList());
-		log.info(from('User').where({ UserID: { 'in': [1,2,3] } }).toList());
+		log.info(from('User').set({ UserID: 1, UserName: 'test' }).insert(true));
+		log.info(from('User').where({ UserID: 1 }).delete(true));
+		log.info(from('User').where('UserID=1').delete(true));
+		log.info(from('User').where({ UserID: { 'in': [1,2,3] } }).delete(true));
+		log.info(from('User').where({ UserName: { 'like': '%cexo%' } }).delete(true));
+		log.info(from('User').where({ UserID: { '>': 1, '<': 1000 } }).delete(true));
+		log.info(from('User').where({ UserID: 1 }).and({ UserName: 'cexo' }).delete(true));
+		log.info(from('User').where({ UserID: 1 }).or({ UserID: 2 }).delete(true));
+		log.info(from('User').where({ UserID: 1 }).andBegin({ UserName: 'cexo1' }).orEnd({ UserName: 'cexo2' }).delete(true));
+		log.info(from('User').where({ UserID: 1 }).set({ UserName: 'cexo' }).update(true));
+		log.info(from('User').where({ UserID: 1 }).toList(true));
+		log.info(from('User').where({ UserID: { 'in': [1,2,3] } }).toList(true));
 		var linq = from('User as a')
 			.distinct()
 			.select('a.UserID', 'b.OrderID', 'c.GiftID')
@@ -200,57 +120,45 @@ var LibTest = {
 			.groupBy('a.UserID')
 			.orderBy('a.UserID', 'b.OrderID desc')
 			.limit(10);
-		log.info(linq.toList(null, false));
-		//log.info(linq.first(null, false));
-		//log.info(linq.count());
-	},
-	time_destory3: function(){
-		var linq = from("User").where({UserID:3}).first();
-		linq = null;
-	},
-	time_destory2: function(){
-		var linq = from("User").where({UserID:3});
-		linq = null;
-	},
-	time_destory1: function(){
-		from("User").where({UserID:3}).destroy();
-	},
-	linq_destroy: function(){
-		log.info('destroy1');
-		var ss = from("User").where({UserID:3});
-		ss.first();
-		log.info(ss);
+		log.info(linq.toList(true));
+		log.info(linq.first(true));
+		log.info(linq.count(true));
 
-		log.info('destroy2');
-		var ss = from("User").where({UserID:3});
-		ss.first(function(err, result){
-			log.info(result);
-			log.info(ss);
-		});
-		log.info(ss.whereList);
-		log.info(ss);
+		log.info(from("User").toPage(1, 2, true));
 	},
-	db_select3: function() {
+	db_select2: function() {
 		console.time("db_select3");
-		db.select('select * from User where UserID=3', function(err, result) {
+		db.first('select * from User where UserID=3').then(function(result) {
 			log.info(result);
 			console.timeEnd("db_select3");
 		});
-	},
-	db_select2: function() {
-		console.time("db_select2");
-		var cb = function(err, result){
+		console.time("db_select4");
+		db.query('select * from User').then(function(results) {
+			log.info(results);
+			console.timeEnd("db_select4");
+		});
+
+		/*db.update('update User set UserName=? where UserID=1', ['中国']).then(function(result) {
 			log.info(result);
-			console.timeEnd("db_select2");
-		};
-		db.select('select * from User where UserID=2', cb);
+		});
+		db.insert('insert into User(UserName) values(?),(?)', ['中国1','中国2']).then(function(result) {
+			log.info(result);
+		});
+		db.delete('delete from User where UserID=?', [8]).then(function(result) {
+			log.info(result);
+		});*/
 	},
 	db_select1: function() {
 		console.time("db_select1");
-		log.info(User.getUser(1, function(err, result) {
+		User.getUser(1).then(function(result) {
 			log.info(result);
 			console.timeEnd("db_select1");
-		}));
+		});
+		console.time("db_select2");
+		User.getUsers().then(function(results) {
+			log.info(results);
+			console.timeEnd("db_select2");
+		});
 	},
 	requireModel: function() { require('./../app/model/User'); },
 	appModel: function() { appModel('User'); },
