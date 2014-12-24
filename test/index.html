@@ -10,7 +10,7 @@
         var client = io('http://' + (window.location.hostname || '127.0.0.1') + ':6007');
         client.on('connect', function(){
             console.log('connect success!');
-            client.emit('login', { userid: 11 });
+            client.emit('login', { key: 'qwerqwerqwerqwerasdfsdfasdfasdfasdfadsf' });
         });
         client.on('login', function(data) {
             console.log('login');

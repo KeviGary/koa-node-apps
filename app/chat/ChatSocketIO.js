@@ -1,22 +1,25 @@
 'use strict';
 
-var users = {};
+appModel('User');
 
 var io = require('socket.io')();
 io.on('connection', function(client){
 	logger.info('connection pid:' + process.pid);
 
 	client.on('login', function(data) {
-		client.username = '';
-		client.room = '';
-		client.join(client.room);
+		client.username = { u:1, m:1, t:0, l:'zh_TW' };
 
-		logger.info('login');
-		logger.info(data);
-		client.emit('login', {message:'login success!'});
+		Cache.getUser(client.username.u).then(function(result) {
+			if (!result) client.disconnect();
+			logger.info('login');
+			logger.info(result);
+			client.emit('login', { message:'login success!' });
+		});
 	});
 
 	client.on('chat', function(data) {
+		if (!client.username) client.disconnect();
+
 		logger.info('chat');
 		logger.info(data);
 		client.emit('chat', data);
@@ -24,10 +27,9 @@ io.on('connection', function(client){
 
 	client.on('disconnect', function () {
 		logger.info('disconnect');
-		delete users[client.username];
-		client.leave(client.room);
 	});
 
+	//client.room = '';
 	//client.join('room1');
 	//client.leave('room1');
 	//client.broadcast.to('room1').emit('function', 'data1', 'data2');
