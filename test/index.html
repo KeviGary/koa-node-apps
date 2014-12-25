@@ -1,29 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <script src="../node_modules/socket.io-client/socket.io.js" type="text/javascript"></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<script src="../node_modules/socket.io-client/socket.io.js" type="text/javascript"></script>
 </head>
 <body>
-    <script>
-        var client = io('http://' + (window.location.hostname || '127.0.0.1') + ':6007');
-        client.on('connect', function(){
-            console.log('connect success!');
-            client.emit('login', { key: 'qwerqwerqwerqwerasdfsdfasdfasdfasdfadsf' });
-        });
-        client.on('login', function(data) {
-            console.log('login');
-            console.log(data);
-            client.emit('chat', data);
-        });
-        client.on('chat', function(data) {
-            console.log('chat');
-            console.log(data);
-        });
-        client.on('disconnect', function(){
-            console.log('disconnect!');
-        });
-    </script>
+<script>
+	var client = io('http://' + (window.location.hostname || '127.0.0.1') + ':6007');
+	client.on('connect', function() {
+		console.log('连接服务器成功！');
+		console.log('发送登陆请求！');
+		client.emit('login', { u: 1, m: 1, t: 0, l: 'zh_TW' }, function(result) { //带回调的emit
+			console.log('登陆发送结果：', result);
+			if (result.code === 1) { //登陆成功发送一个聊天消息
+				console.log('登陆成功，发送聊天消息！');
+				client.emit('chat', { msg: '客服端来电！请回复！' }, function(result) {
+					console.log('聊天发送结果：', result);
+				});
+			}
+		});
+	});
+
+	client.on('chat', function(data, callback) {
+		console.log('收到服务器的聊天消息：', data);
+		callback({ code: 1, msg: '服务器发送成功！' });
+	});
+
+	client.on('disconnect', function() {
+		console.log('断开与服务器的连接!');
+	});
+</script>
 </body>
 </html>

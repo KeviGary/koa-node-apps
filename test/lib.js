@@ -1,8 +1,5 @@
 'use strict';
 
-//加载用户Model
-appModel('User');
-
 var arr = [];
 function someFn(i) {
 	return i * 3 * 8;
@@ -161,7 +158,7 @@ var LibTest = {
 		});
 	},
 	requireModel: function() { require('./../app/model/User'); },
-	appModel: function() { appModel('User'); },
+	loadModel: function() { loadModel('User'); },
 	log: function() { logger.info('test1'); },
 	test: function(){ },
 	all: function() {
