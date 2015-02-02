@@ -7,7 +7,11 @@
 	"dependencies"	: {
 		"bluebird"				: "*",
 		"mysql"					: "*",
+		"sqlite3"				: "*",
+		"redis"					: "*",
 		"memcache"				: "*",
+		"log4js"				: "*",
+		"nodemailer"			: "*",
 		"socket.io"				: "*",
 		"socket.io-client"		: "*",
 		"sticky-session"		: "*"

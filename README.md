@@ -8,14 +8,17 @@
 * memcache
 * mysql
 * sticky-session
+* nodemailer
+* sqlite3
+* redis
 
 ## 文件目录：
 * /app.js app主启动文件
 * /app/ app目录
 * /app/app.js app加载数据文件
 * /app/chat/ 聊天服务器目录
-* /app/chat/ChatServer.js 
-* /app/chat/ChatSocketIO.js 
+* /app/chat/ChatServer.js
+* /app/chat/ChatSocketIO.js
 * /app/chat/OneChatServer.js 启动单进程ChatServer
 * /app/chat/MultChatServer.js 启动多进程ChatServer
 * /app/model/ 数据库操作目录

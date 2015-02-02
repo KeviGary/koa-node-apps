@@ -10,6 +10,5 @@ loadModel('User');
 var test = appTest('lib');
 
 //测试代码
-//setInterval(test.time_destory1, 10);
-test.all();
-
+//test.all();
+test.linq();

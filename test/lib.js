@@ -12,6 +12,13 @@ function init_array(){
 init_array();
 
 var LibTest = {
+
+	mail: function(){
+		logger.info('test send mail:');
+		mail.send('xionghc@highstones.com', 'test', '<h1>xionghc@highstones.com</h1>').done(function(result){
+			logger.info(result);
+		});
+	},
 	sql_page: function(){
 		console.time("sql_page");
 		from("User").toPage(1, 2).then(function(result){
@@ -63,13 +70,19 @@ var LibTest = {
 		});
 	},
 	cache: function(){
+		cache.flushall().done();
+		cache.keys('*').done(function(result) {
+			logger.info(result);
+		});
 		cache.get('test').then(function(result) {
 			logger.info(result);
 		});
 		cache.set('test', 1).then(function(result) {
 			logger.info(result);
 		});
-		cache.delete('test').done();
+		cache.delete('test').done(function(result) {
+			logger.info(result);
+		});
 
 		console.time("promise.all");
 		promise.all([
