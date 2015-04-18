@@ -1,0 +1,22 @@
+<div class="login-container">
+	<div class="window-title"><%= lang.login.title %></div>
+	<div class="window-content">
+		<table class="form-table">
+			<tr>
+				<td align="right"><%= lang.login.labels[0] %></td>
+				<td><input type="text" name="account" id="account" class="form-control" placeholder="<%= lang.login.labels[1] %>" value="cexo255@163.com"></td>
+			</tr><tr>
+				<td align="right"><%= lang.login.labels[2] %></td>
+				<td><input type="password" name="password" id="password" class="form-control" placeholder="<%= lang.login.labels[3] %>" value="123456"></td>
+			</tr><tr>
+				<td align="right"></td>
+				<td>
+					<button type="submit" id="submit" class="btn btn-primary"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> <%= lang.login.labels[4] %></button>
+					<label><input type="checkbox" checked="checked" id="remember" name="remember"> <%= lang.login.labels[5] %></label>
+					<a href="#"><%= lang.login.labels[6] %></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<%- include ../alert.html %>

@@ -1,46 +1,5 @@
-游戏服务器架构
+koa-node-apps
 ==========
-## 使用开源组件：
-* socket.io
-* socket.io-client
-* bluebird
-* log4js
-* memcache
-* mysql
-* sticky-session
-* nodemailer
-* sqlite3
-* redis
-
-## 文件目录：
-* /app.js app主启动文件
-* /app/ app目录
-* /app/app.js app加载数据文件
-* /app/chat/ 聊天服务器目录
-* /app/chat/ChatServer.js
-* /app/chat/ChatSocketIO.js
-* /app/chat/OneChatServer.js 启动单进程ChatServer
-* /app/chat/MultChatServer.js 启动多进程ChatServer
-* /app/model/ 数据库操作目录
-* /app/model/User.js 用户数据库操作
-* /app/Cache.js 缓存操作文件
-* /app/Util.js 函数库
-* /config 配置目录
-* /config/app.js app配置
-* /config/log4.js log4日志配置
-* /config/memcache.js memcache配置
-* /config/mysql.js mysql配置
-* /lib/ 核心库
-* /lib/init.js 初始化
-* /lib/cache/ 缓存：可实现memcache，redis等等
-* /lib/core/ 核心代码：缓存加载，数据库加载，锁加载，日志加载，linq的实现，核心函数等等
-* /lib/db/ 数据库：可实现mysql，mongodb等等
-* /lib/lock/ 锁：可实现内存锁，文件锁，cache锁等等
-* /lib/log/ 日志：可实现log4日志，console等等
-* test.js 测试主启动文件
-* /test/ 测试代码目录
-* /test/app.js 测试配置
-* /test/lib.js 测试代码
 
 ## promise支持：
 ```javascript

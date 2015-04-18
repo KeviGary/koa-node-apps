@@ -1,6 +1,5 @@
 //元数据
+"use strict";
 
-//requireCache
-module.exports.requireCache = {};
-//memlockCache
-module.exports.memlockCache = {};
+//memoryCache
+module.exports.memoryCache = {};

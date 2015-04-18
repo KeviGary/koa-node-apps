@@ -1,0 +1,55 @@
+<div class="desktop">
+	<div class="desktop-dock">
+		<div class="dock-menus">
+			<a class="dock-menu" data-toggle="tooltip" data-placement="right" data-original-title="显示/隐藏桌面" app="desktop" url="">
+				<span class="glyphicon glyphicon-blackboard"></span>
+			</a>
+			<a class="dock-menu" data-toggle="tooltip" data-placement="right" data-original-title="显示/隐藏桌面" app="clouse" url="">
+				<span class="glyphicon glyphicon-book"></span>
+			</a>
+			<a class="dock-menu" data-toggle="tooltip" data-placement="right" data-original-title="显示/隐藏桌面" app="exam" url="">
+				<span class="glyphicon glyphicon-picture"></span>
+			</a>
+			<a class="dock-menu" data-toggle="tooltip" data-placement="right" data-original-title="显示/隐藏桌面" app="task" url="">
+				<span class="glyphicon glyphicon-gift"></span>
+			</a>
+			<a class="dock-menu" data-toggle="tooltip" data-placement="right" data-original-title="系统设置" app="setting" url="http://app.test.com/">
+				<span class="glyphicon glyphicon-cog"></span>
+			</a>
+		</div>
+		<div class="dropup">
+			<a class="dock-menu" data-toggle="dropdown">
+				<span class="glyphicon glyphicon-user"></span>
+			</a>
+			<ul class="dropdown-menu dropdown-menu-left">
+				<li><a path="setting/profile">个人资料</a></li>
+				<li class="divider"></li>
+				<li><ul class="bgcolors"><% for(var i in config.bgcolors) { %><li class="<%= user && user.BgColor==config.bgcolors[i] ? 'active' : '' %>" style="border:1px solid <%=config.bgcolors[i]%>;"><a color="<%=config.bgcolors[i]%>" style="background-color:<%=config.bgcolors[i]%>"></a></li><% }; %></ul></li>
+				<li class="divider"></li>
+				<li><a href="/logout"><span class="glyphicon glyphicon-off"></span> 退出系统</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="desktop-component">
+
+	</div>
+	<div class="desktop-container hide">
+		<div class="window hide" id="setting-container">
+			<div class="window-title">
+				<div class="window-nav window-op"><a class="window-refresh"><span class="glyphicon glyphicon-repeat"></span></a></div>
+				<div class="window-nav">
+					<b><span class="glyphicon glyphicon-cog"></span> 系统设置</b>
+					<a path="setting/profile"><span class="glyphicon glyphicon-pencil"></span> 个人资料</a>
+					<a path="setting/user"><span class="glyphicon glyphicon-user"></span> 学员</a>
+					<a path="setting/deparment"><span class="glyphicon glyphicon-road"></span> 部门</a>
+					<a path="setting/job"><span class="glyphicon glyphicon-briefcase"></span> 岗位</a>
+					<a path="setting/app"><span class="glyphicon glyphicon-th-large"></span> 应用</a>
+					<a path="setting/role"><span class="glyphicon glyphicon-lock"></span> 角色权限</a>
+				</div>
+			</div>
+			<div class="window-content">
+				<iframe src="" class="window-frame" id="setting-frame" allowtransparency=”true”></iframe>
+			</div>
+		</div>
+	</div>
+</div>

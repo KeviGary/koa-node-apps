@@ -1,19 +1,30 @@
 {
-	"name"			: "GameServer",
-	"description"	: "GameServer",
-	"version"		: "0.0.1",
-	"main"			: "app.js",
-	"private"		: true,
-	"dependencies"	: {
-		"bluebird"				: "*",
-		"mysql"					: "*",
-		"sqlite3"				: "*",
-		"redis"					: "*",
-		"memcache"				: "*",
-		"log4js"				: "*",
-		"nodemailer"			: "*",
-		"socket.io"				: "*",
-		"socket.io-client"		: "*",
-		"sticky-session"		: "*"
-	}
+  "name": "app",
+  "description": "app",
+  "version": "0.0.1",
+  "main": "app.js",
+  "private": true,
+  "scripts": {
+    "start": "./lms start",
+    "status": "./lms status",
+    "stop": "./lms stop"
+  },
+  "dependencies": {
+    "bluebird": "^2.9.6",
+    "cfork": "^1.2.2",
+    "graceful": "^1.0.0",
+    "koa": "^0.16.0",
+    "koa-limit": "^1.0.2",
+    "koa-middlewares": "^2.1.0",
+    "log4js": "^0.6.22",
+    "memcache": "^0.3.0",
+    "mysql": "^2.5.4",
+    "nodemailer": "^1.3.0",
+    "redis": "^0.12.1",
+    "sqlite3": "^3.0.5",
+    "xss": "^0.1.20"
+  },
+  "engines": {
+    "node": ">= 0.11.14"
+  }
 }
