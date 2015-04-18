@@ -66,3 +66,5 @@ linq.toList();
 linq.first();
 linq.count();
 ```
+###效果
+![图片](https://github.com/hcxiong/koa-node-apps/blob/master/20150418.png?raw=true)
