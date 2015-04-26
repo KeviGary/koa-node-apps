@@ -57,11 +57,11 @@ var config = {
 	admins: ['cexo255@163.com'],
 	errorSendEmail: false,
 	mail: {
-		from: 'test <xionghc@highstones.com>',
+		from: 'test <cexo255@163.com>',
 		service: 'gmail',
 		auth: {
-			user: 'xionghc@highstones.com',
-			pass: 'cexo255@'
+			user: 'cexo255@163.com',
+			pass: '123456'
 		}
 	},
 
